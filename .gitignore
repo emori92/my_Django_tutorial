@@ -1,0 +1,12 @@
+.env
+*.log
+*.pyc
+*.pot
+
+__pycache__
+.vscode
+.DS_store
+media
+
+local.py
+db.sqlite3
