@@ -8,13 +8,13 @@
       
         <ul>
           {% for choice in question.choice_set.all %}
-              <li class="display-5 mb-3">
-                <span class="h1">{{ choice.choice_text }}: </span>
-                <span class="h1 text-danger">{{ choice.votes }}</span>
-              </li>
+            <li class="display-5 mb-3">
+              <span class="h1">{{ choice.choice_text }}: </span>
+              <span class="h1 text-danger">{{ choice.votes }}</span>
+            </li>
           {% endfor %}
         </ul>
-        <a href="{% url 'polls:detail' question.id %}" class="btn btn-primary mt-4">Vote again?</a>
+        <a href="{% url 'polls:detail' question.id %}" class="btn btn-primary mt-4">もう一度投票する</a>
       </div>
     </div>
   </div>

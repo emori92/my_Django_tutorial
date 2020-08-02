@@ -9,10 +9,13 @@ class Question(models.Model):
     pub_date = models.DateTimeField('date published')
     
     def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        """1日以上たったpub_dataを返す"""
+        now = timezone.now()
+        return now >= self.pub_date >= now - datetime.timedelta(days=1)
 
     def __str__(self):
         return self.question_text
+
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
