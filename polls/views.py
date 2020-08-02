@@ -3,27 +3,35 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import loader
 from django.views import generic
+from django.utils import timezone
 
 import logging
 from .models import Question, Choice
+
 
 # logging
 logger = logging.getLogger(__name__)
 
 
-# Create your views here.
+# views
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'question'
 
     def get_queryset(self):
-        """最新の5件を取得"""
+        """最新の5件(未来は含まない)を取得"""
         return Question.objects.order_by('-pub_date')[:5]
+        # return Question.objects.filter(pub_date__lte=timezone.now()) \
+        #     .order_by('-pub_date')[:5]
 
 
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
+    
+    def get_queryset(self):
+        """publishされてないquerysetを返す"""
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 
 class ResultsView(generic.DetailView):
